@@ -34,7 +34,7 @@ RUN     apt-get update && \
         rm -rf /usr/share/man/??_*
 
 # Enable mcrypt
-#RUN     php5enmod mcrypt
+RUN     php5enmod mcrypt
 
 # Tweak xdebug config
 RUN     echo "xdebug.remote_port=9002" >> /etc/php5/fpm/conf.d/25-modules.ini && \
