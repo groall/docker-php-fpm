@@ -54,6 +54,13 @@ RUN     echo "extension=redis.so" >> /etc/php5/fpm/conf.d/25-modules.ini && \
         echo "extension=propro.so" >> /etc/php5/fpm/conf.d/25-modules.ini && \
         echo "extension=http.so" >> /etc/php5/fpm/conf.d/25-modules.ini
 
+RUN     echo "extension=redis.so" >> /etc/php5/cli/conf.d/25-modules.ini && \
+        echo "extension=amqp.so" >> /etc/php5/cli/conf.d/25-modules.ini && \
+        echo "extension=xhprof.so" >> /etc/php5/cli/conf.d/25-modules.ini && \
+        echo "extension=raphf.so" >> /etc/php5/cli/conf.d/25-modules.ini && \
+        echo "extension=propro.so" >> /etc/php5/cli/conf.d/25-modules.ini && \
+        echo "extension=http.so" >> /etc/php5/cli/conf.d/25-modules.ini
+
 # Tweak php config
 RUN     sed -i -e"s/upload_max_filesize\s*=\s*2M/upload_max_filesize = 100M/g" /etc/php5/fpm/php.ini && \
         sed -i -e"s/post_max_size\s*=\s*8M/post_max_size = 100M/g" /etc/php5/fpm/php.ini && \
