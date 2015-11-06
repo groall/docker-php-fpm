@@ -33,6 +33,12 @@ RUN     apt-get update && \
         rm -rf /usr/share/man/?? && \
         rm -rf /usr/share/man/??_*
 
+RUN     mkdir /var/www && \
+        mkdir /var/www/.local && \
+        mkdir /var/www/.local/share && \
+        chown www-data:www-data /var/www/.local/share
+
+
 # Enable mcrypt
 RUN     php5enmod mcrypt
 
