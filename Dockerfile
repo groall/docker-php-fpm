@@ -50,7 +50,16 @@ RUN     echo "xdebug.remote_port=9002" >> /etc/php5/fpm/conf.d/25-modules.ini &&
         echo "xdebug.remote_autostart=1" >> /etc/php5/fpm/conf.d/25-modules.ini
 
 # Install pecl modules
-RUN     yes | pecl install redis amqp  apcu-4.0.7 xhprof-0.9.4 raphf propro  pecl_http-1.7.6
+RUN     git clone https://github.com/alanxz/rabbitmq-c && \
+        cd rabbitmq-c && \
+        git checkout tags/v0.5.2 && \
+        git submodule init && \
+        git submodule update && \
+        autoreconf -i && ./configure && make && make install && \
+        pecl install amqp
+
+# тут был ещё amqp, но он перестал собираться, вынесен выше
+RUN     yes | pecl install redis apcu-4.0.7 xhprof-0.9.4 raphf propro  pecl_http-1.7.6
 RUN     echo "extension=redis.so" >> /etc/php5/fpm/conf.d/25-modules.ini && \
         echo "extension=amqp.so" >> /etc/php5/fpm/conf.d/25-modules.ini && \
         echo "extension=xhprof.so" >> /etc/php5/fpm/conf.d/25-modules.ini && \
