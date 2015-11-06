@@ -34,9 +34,7 @@ RUN     apt-get update && \
         rm -rf /usr/share/man/??_*
 
 RUN     mkdir /var/www && \
-        mkdir /var/www/.local && \
-        mkdir /var/www/.local/share && \
-        chown www-data:www-data /var/www/.local/share
+        chown www-data:www-data /var/www/
 
 
 # Enable mcrypt
