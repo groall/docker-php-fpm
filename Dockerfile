@@ -33,6 +33,7 @@ RUN     apt-get update && \
         rm -rf /usr/share/man/?? && \
         rm -rf /usr/share/man/??_*
 
+# Make home dir for www-data user
 RUN     mkdir /var/www && \
         chown www-data:www-data /var/www/
 
@@ -40,7 +41,7 @@ RUN     mkdir /var/www && \
 # Enable mcrypt
 RUN     php5enmod mcrypt
 
-# Tweak xdebug config
+# Tweak xdebug config for FPM
 RUN     echo "xdebug.remote_port=9002" >> /etc/php5/fpm/conf.d/25-modules.ini && \
         echo "xdebug.remote_enable=1" >> /etc/php5/fpm/conf.d/25-modules.ini && \
         echo "xdebug.remote_handler=dbgp" >> /etc/php5/fpm/conf.d/25-modules.ini && \
@@ -49,6 +50,7 @@ RUN     echo "xdebug.remote_port=9002" >> /etc/php5/fpm/conf.d/25-modules.ini &&
         echo "xdebug.max_nesting_level=1000" >> /etc/php5/fpm/conf.d/25-modules.ini && \
         echo "xdebug.remote_autostart=1" >> /etc/php5/fpm/conf.d/25-modules.ini
 
+# Tweak xdebug config for CLI
 RUN     echo "xdebug.remote_port=9003" >> /etc/php5/cli/conf.d/25-modules.ini && \
         echo "xdebug.remote_enable=1" >> /etc/php5/cli/conf.d/25-modules.ini && \
         echo "xdebug.remote_handler=dbgp" >> /etc/php5/cli/conf.d/25-modules.ini && \
@@ -60,13 +62,14 @@ RUN     echo "xdebug.remote_port=9003" >> /etc/php5/cli/conf.d/25-modules.ini &&
 # Install pecl modules
 # amqp-1.6.0 не собирается на ubuntu 14.04
 RUN     yes | pecl install amqp-1.4.0 redis apcu-4.0.7 xhprof-0.9.4 raphf propro  pecl_http-1.7.6
+# Add pecl extensions to php-fpm
 RUN     echo "extension=redis.so" >> /etc/php5/fpm/conf.d/25-modules.ini && \
         echo "extension=amqp.so" >> /etc/php5/fpm/conf.d/25-modules.ini && \
         echo "extension=xhprof.so" >> /etc/php5/fpm/conf.d/25-modules.ini && \
         echo "extension=raphf.so" >> /etc/php5/fpm/conf.d/25-modules.ini && \
         echo "extension=propro.so" >> /etc/php5/fpm/conf.d/25-modules.ini && \
         echo "extension=http.so" >> /etc/php5/fpm/conf.d/25-modules.ini
-
+# Add pecl extensions to cli php
 RUN     echo "extension=redis.so" >> /etc/php5/cli/conf.d/25-modules.ini && \
         echo "extension=amqp.so" >> /etc/php5/cli/conf.d/25-modules.ini && \
         echo "extension=xhprof.so" >> /etc/php5/cli/conf.d/25-modules.ini && \
@@ -74,7 +77,7 @@ RUN     echo "extension=redis.so" >> /etc/php5/cli/conf.d/25-modules.ini && \
         echo "extension=propro.so" >> /etc/php5/cli/conf.d/25-modules.ini && \
         echo "extension=http.so" >> /etc/php5/cli/conf.d/25-modules.ini
 
-# Tweak php config
+# Tweak php-fpm php.ini
 RUN     sed -i -e"s/upload_max_filesize\s*=\s*2M/upload_max_filesize = 100M/g" /etc/php5/fpm/php.ini && \
         sed -i -e"s/post_max_size\s*=\s*8M/post_max_size = 100M/g" /etc/php5/fpm/php.ini && \
         sed -i -e"s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php5/fpm/php.ini
