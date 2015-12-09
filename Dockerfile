@@ -3,7 +3,7 @@ FROM ubuntu:14.04
 MAINTAINER      groall <groall@nodasoft.com>
 
 # Let the conatiner know that there is no tty
-ENV DEBIAN_FRONTEND noninteractive
+ENV     DEBIAN_FRONTEND noninteractive
 
 # Set locale
 RUN     locale-gen ru_RU.UTF-8 && locale-gen en_US.UTF-8 && dpkg-reconfigure locales
@@ -45,7 +45,7 @@ RUN     php5enmod mcrypt
 RUN     echo "xdebug.remote_port=9002" >> /etc/php5/fpm/conf.d/25-modules.ini && \
         echo "xdebug.remote_enable=1" >> /etc/php5/fpm/conf.d/25-modules.ini && \
         echo "xdebug.remote_handler=dbgp" >> /etc/php5/fpm/conf.d/25-modules.ini && \
-        echo "xdebug.remote_host=172.17.42.1" >> /etc/php5/fpm/conf.d/25-modules.ini && \
+        echo "xdebug.remote_host=xdebug-host" >> /etc/php5/fpm/conf.d/25-modules.ini && \
         echo "xdebug.idekey=PHPSTORM" >> /etc/php5/fpm/conf.d/25-modules.ini && \
         echo "xdebug.max_nesting_level=1000" >> /etc/php5/fpm/conf.d/25-modules.ini && \
         echo "xdebug.remote_autostart=1" >> /etc/php5/fpm/conf.d/25-modules.ini
@@ -54,7 +54,7 @@ RUN     echo "xdebug.remote_port=9002" >> /etc/php5/fpm/conf.d/25-modules.ini &&
 RUN     echo "xdebug.remote_port=9003" >> /etc/php5/cli/conf.d/25-modules.ini && \
         echo "xdebug.remote_enable=1" >> /etc/php5/cli/conf.d/25-modules.ini && \
         echo "xdebug.remote_handler=dbgp" >> /etc/php5/cli/conf.d/25-modules.ini && \
-        echo "xdebug.remote_host=172.17.42.1" >> /etc/php5/cli/conf.d/25-modules.ini && \
+        echo "xdebug.remote_host=xdebug-host" >> /etc/php5/cli/conf.d/25-modules.ini && \
         echo "xdebug.idekey=PHPSTORM" >> /etc/php5/cli/conf.d/25-modules.ini && \
         echo "xdebug.max_nesting_level=1000" >> /etc/php5/cli/conf.d/25-modules.ini && \
         echo "xdebug.remote_autostart=1" >> /etc/php5/cli/conf.d/25-modules.ini
