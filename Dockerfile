@@ -61,7 +61,7 @@ RUN     echo "xdebug.remote_port=9003" >> /etc/php5/cli/conf.d/25-modules.ini &&
 
 # Install pecl modules
 # amqp-1.6.0 не собирается на ubuntu 14.04
-RUN     yes | pecl install amqp-1.4.0 redis apcu-4.0.7 xhprof-0.9.4 raphf propro  pecl_http-1.7.6
+RUN     yes | pecl install amqp-1.4.0 redis apcu-4.0.7 xhprof-0.9.4 raphf-1.0.4 propro-1.0.2  pecl_http-1.7.6
 # Add pecl extensions to php-fpm
 RUN     echo "extension=redis.so" >> /etc/php5/fpm/conf.d/25-modules.ini && \
         echo "extension=amqp.so" >> /etc/php5/fpm/conf.d/25-modules.ini && \
