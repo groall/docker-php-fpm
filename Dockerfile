@@ -61,21 +61,25 @@ RUN     echo "xdebug.remote_port=9003" >> /etc/php5/cli/conf.d/25-modules.ini &&
 
 # Install pecl modules
 # amqp-1.6.0 не собирается на ubuntu 14.04
-RUN     yes | pecl install amqp-1.4.0 redis-2.2.7 apcu-4.0.7 xhprof-0.9.4 raphf-1.0.4 propro-1.0.2  pecl_http-1.7.6
+RUN     yes | pecl install amqp-1.4.0 redis-2.2.7 apcu-4.0.7 xhprof-0.9.4 raphf-1.0.4 propro-1.0.2  pecl_http-1.7.6 protobuf-3.1.0a1 grpc
 # Add pecl extensions to php-fpm
 RUN     echo "extension=redis.so" >> /etc/php5/fpm/conf.d/25-modules.ini && \
         echo "extension=amqp.so" >> /etc/php5/fpm/conf.d/25-modules.ini && \
         echo "extension=xhprof.so" >> /etc/php5/fpm/conf.d/25-modules.ini && \
         echo "extension=raphf.so" >> /etc/php5/fpm/conf.d/25-modules.ini && \
         echo "extension=propro.so" >> /etc/php5/fpm/conf.d/25-modules.ini && \
-        echo "extension=http.so" >> /etc/php5/fpm/conf.d/25-modules.ini
+        echo "extension=http.so" >> /etc/php5/fpm/conf.d/25-modules.ini && \
+        echo "extension=protobuf.so" >> /etc/php5/fpm/conf.d/25-modules.ini && \
+        echo "extension=grpc.so" >> /etc/php5/fpm/conf.d/25-modules.ini
 # Add pecl extensions to cli php
 RUN     echo "extension=redis.so" >> /etc/php5/cli/conf.d/25-modules.ini && \
         echo "extension=amqp.so" >> /etc/php5/cli/conf.d/25-modules.ini && \
         echo "extension=xhprof.so" >> /etc/php5/cli/conf.d/25-modules.ini && \
         echo "extension=raphf.so" >> /etc/php5/cli/conf.d/25-modules.ini && \
         echo "extension=propro.so" >> /etc/php5/cli/conf.d/25-modules.ini && \
-        echo "extension=http.so" >> /etc/php5/cli/conf.d/25-modules.ini
+        echo "extension=http.so" >> /etc/php5/cli/conf.d/25-modules.ini && \
+        echo "extension=protobuf.so" >> /etc/php5/cli/conf.d/25-modules.ini && \
+        echo "extension=grpc.so" >> /etc/php5/cli/conf.d/25-modules.ini
 
 # Tweak php-fpm php.ini
 RUN     sed -i -e"s/upload_max_filesize\s*=\s*2M/upload_max_filesize = 100M/g" /etc/php5/fpm/php.ini && \
