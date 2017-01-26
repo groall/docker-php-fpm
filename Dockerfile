@@ -21,9 +21,10 @@ RUN     apt-get update && \
         apt-get upgrade -y && \
         BUILD_PACKAGES="php5-fpm php5-mysql php-apc php5-curl php5-gd php5-intl php5-mcrypt php5-memcached \
         php5-xmlrpc php-pear php5-dev php-http php5-cli php5-imap php5-xdebug php5-imagick \
-        gcc make g++ build-essential tcl wget git tzdata curl zip nano ca-certificates inotify-tools pwgen gnumeric p7zip-full \
-        libpcre3-dev libevent-dev libmagic-dev libmagickcore5-extra librabbitmq1 librabbitmq-dev libcurl3 libcurl4-openssl-dev \
-        libssh2-php libc6-dev" && \
+        gcc make g++ build-essential tcl wget git tzdata curl zip nano ca-certificates inotify-tools pwgen gnumeric \
+        p7zip-full mysql-client \
+        libpcre3-dev libevent-dev libmagic-dev libmagickcore5-extra librabbitmq1 librabbitmq-dev libcurl3 \
+        libcurl4-openssl-dev libssh2-php libc6-dev" && \
         apt-get install -y $BUILD_PACKAGES && \
         apt-get remove --purge -y software-properties-common && \
         apt-get autoremove -y && \
